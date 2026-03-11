@@ -1,5 +1,3 @@
-import uuid
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -44,7 +42,7 @@ async def create_setup(
 
 @router.put("/{setup_id}", response_model=DoESetupResponse)
 async def update_setup(
-    setup_id: uuid.UUID,
+    setup_id: str,
     body: DoESetupUpdate,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
@@ -70,7 +68,7 @@ async def update_setup(
 
 @router.delete("/{setup_id}", status_code=204)
 async def delete_setup(
-    setup_id: uuid.UUID,
+    setup_id: str,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> None:
